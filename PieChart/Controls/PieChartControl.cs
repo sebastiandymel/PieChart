@@ -88,6 +88,49 @@ namespace PieChart
             UpdateItems();
         }
 
+        private void UpdateItems()
+        {
+            this.slices.Clear();
+            if (ItemsSource != null)
+            {
+                if (ItemsSource is IEnumerable<double> doubleCollection)
+                {
+                    if (SortDescending)
+                    {
+                        doubleCollection = doubleCollection.OrderByDescending(x => x);
+                    }
+                    var count = 0;
+                    var sum = PieSum.HasValue ? PieSum.Value : doubleCollection.Sum();
+                    foreach (var item in doubleCollection)
+                    {
+                        this.slices.Add(new PieSliceVal
+                        {
+                            Value = item * 360 / sum,
+                            Index = count++
+                        });
+                    }
+                }
+                else if (ItemsSource is IEnumerable<IPieSlice> pieSlices)
+                {
+                    if (SortDescending)
+                    {
+                        pieSlices = pieSlices.OrderByDescending(x => x.Value);
+                    }
+                    var count = 0;
+                    var sum = PieSum ?? pieSlices.Sum(x => x.Value);
+                    foreach (var item in pieSlices)
+                    {
+                        this.slices.Add(new PieSliceVal
+                        {
+                            Value = item.Value * 360 / sum,
+                            Index = count++
+                        });
+                    }
+                }
+            }
+            InvalidateVisual();
+        }
+        
         #endregion ItemsSource
 
         #region Outline Thickness
@@ -204,19 +247,18 @@ namespace PieChart
             foreach (var slice in this.slices)
             {
                 var lastPoint = ToPoint(angle, radius);
+                angle = Math.Min(359, slice.Value + angle);
 
                 var path = new Path();
                 var pathGeometry = new PathGeometry();
                 var pathFigure = new PathFigure {StartPoint = center, IsClosed = true};
-
-                angle = Math.Min(359, slice.Value + angle);
                 var lineSegment = new LineSegment(lastPoint, true) { IsSmoothJoin = true };
                 var arcSegment = GetArc(radius, angle, slice);
                 pathFigure.Segments.Add(lineSegment);
                 pathFigure.Segments.Add(arcSegment);
                 pathGeometry.Figures.Add(pathFigure);
-                path.Data = pathGeometry;
-                path.ToolTip = !string.IsNullOrEmpty(ToolTipFormattingString) ? string.Format(ToolTipFormattingString, CalcPercentage(slice.Value)) : CalcPercentage(slice.Value).ToString(CultureInfo.InvariantCulture);
+                //path.Data = pathGeometry;
+                path.ToolTip = GetToolTip(slice);
                 
                 SetStyle(path, slice);
                 this.internalCanvas.Children.Add(path);
@@ -262,52 +304,14 @@ namespace PieChart
             }
         }
 
+        private string GetToolTip(PieSliceVal slice)
+        {
+            return !string.IsNullOrEmpty(ToolTipFormattingString) ? string.Format(ToolTipFormattingString, CalcPercentage(slice.Value)) : CalcPercentage(slice.Value).ToString(CultureInfo.InvariantCulture);
+        }
+
         private Style GetStyle(PieSliceVal slice, Path path)
         {
             return SliceStyleSelector?.SelectStyle(slice.Index, path);
-        }
-
-        private void UpdateItems()
-        {
-            this.slices.Clear();
-            if (ItemsSource != null)
-            {
-                if (ItemsSource is IEnumerable<double> doubleCollection)
-                {
-                    if (SortDescending)
-                    {
-                        doubleCollection = doubleCollection.OrderByDescending(x => x);
-                    }
-                    var count = 0;
-                    var sum = PieSum.HasValue ? PieSum.Value : doubleCollection.Sum();
-                    foreach (var item in doubleCollection)
-                    {
-                        this.slices.Add(new PieSliceVal
-                        {
-                            Value = item * 360/sum,
-                            Index = count++
-                        });
-                    }
-                }
-                else if (ItemsSource is IEnumerable<IPieSlice> pieSlices)
-                {
-                    if (SortDescending)
-                    {
-                        pieSlices = pieSlices.OrderByDescending(x => x.Value);
-                    }
-                    var count = 0;
-                    var sum = PieSum.HasValue ? PieSum.Value : pieSlices.Sum(x => x.Value);
-                    foreach (var item in pieSlices)
-                    {
-                        this.slices.Add(new PieSliceVal
-                        {
-                            Value = item.Value * 360/sum,
-                            Index = count++
-                        });
-                    }
-                }
-            }
-            InvalidateVisual();
         }
 
         protected Brush GetFillBySlice(PieSliceVal slice)
