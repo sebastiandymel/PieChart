@@ -13,66 +13,6 @@
         Width="800"
         >
     <Window.Resources>
-        <Style x:Key="Style.Path.Base" TargetType="{x:Type Path}">
-            <Setter Property="Stroke" Value="White" />
-            <Setter Property="StrokeThickness" Value="3" />
-            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform />
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleX)">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.2">
-                                        <EasingDoubleKeyFrame.EasingFunction>
-                                            <BackEase />
-                                        </EasingDoubleKeyFrame.EasingFunction>
-                                    </EasingDoubleKeyFrame>
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleY)">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.2">
-                                        <EasingDoubleKeyFrame.EasingFunction>
-                                            <BackEase />
-                                        </EasingDoubleKeyFrame.EasingFunction>
-                                    </EasingDoubleKeyFrame>
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleX)">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.0" />
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleY)">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.0" />
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                    <Trigger.Setters>
-                        <Setter Property="Effect">
-                            <Setter.Value>
-                                <DropShadowEffect BlurRadius="6"
-                                                  Direction="270"
-                                                  ShadowDepth="5"
-                                                  Color="Black"
-                                                  />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger.Setters>
-                </Trigger>
-                <Trigger Property="pieChart:PathExtensions.IsDimmed" Value="True">
-                    <Setter Property="Opacity" Value="0.2" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         <pieChart:FixedColorStyleSelector x:Key="FixedColorSelector">
             <pieChart:FixedColorStyleSelector.BaseStyle>
                 <Style TargetType="{x:Type Path}">
@@ -110,171 +50,13 @@
                 </Style>
             </pieChart:FixedColorStyleSelector.BaseStyle>
         </pieChart:FixedColorStyleSelector>
-
-        <Style TargetType="{x:Type pieChart:PieChartControl}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Canvas Name="PART_CANVAS"
-                                Height="{TemplateBinding Height}"
-                                Width="{TemplateBinding Width}"
-                                />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="SliceStyleSelector">
-                <Setter.Value>
-                    <pieChart:SliceStyleSelector>
-                        <pieChart:IndexBasedSliceStyle Index="0" IsDefault="True">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Red" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="1">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Blue" />
-                                <Setter Property="Opacity" Value="0.3" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="2">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Green" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="3">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Orange" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="4">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Gray" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="5">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="DarkCyan" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="6">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="DeepSkyBlue" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="7">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Purple" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="8">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Lime" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="9">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="Bisque" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="10">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="MediumSeaGreen" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="11">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Fill" Value="LightGoldenrodYellow" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                    </pieChart:SliceStyleSelector>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="OutlineThickness" Value="2" />
-            <Setter Property="OutlineBrush" Value="White" />
-        </Style>
-        <Style TargetType="{x:Type pieChart:RingChartControl}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type pieChart:RingChartControl}">
-                        <Canvas Name="PART_CANVAS"
-                                Height="{TemplateBinding Height}"
-                                Width="{TemplateBinding Width}"
-                                Background="{TemplateBinding Background}"
-                                />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="SliceStyleSelector">
-                <Setter.Value>
-                    <pieChart:SliceStyleSelector>
-                        <pieChart:IndexBasedSliceStyle Index="0" IsDefault="True">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Red" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="1">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Blue" />
-                                <Setter Property="Opacity" Value="0.3" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="2">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Green" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="3">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Orange" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="4">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Gray" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="5">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="DarkCyan" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="6">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="DeepSkyBlue" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="7">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="AntiqueWhite" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                        <pieChart:IndexBasedSliceStyle Index="8">
-                            <Style BasedOn="{StaticResource Style.Path.Base}" TargetType="{x:Type Path}">
-                                <Setter Property="Stroke" Value="Black" />
-                                <Setter Property="Fill" Value="Lime" />
-                            </Style>
-                        </pieChart:IndexBasedSliceStyle>
-                    </pieChart:SliceStyleSelector>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="OutlineThickness" Value="2" />
-            <Setter Property="OutlineBrush" Value="Black" />
-        </Style>
     </Window.Resources>
     <ScrollViewer>
         <WrapPanel>
             <pieChart:PieChartControl Height="200"
-                                   Width="200"
-                                   Margin="40"
-                                   >
+                                      Width="200"
+                                      Margin="40"
+                                      >
                 <pieChart:PieChartControl.ItemsSource>
                     <x:Array Type="{x:Type core:Double}">
                         <core:Double>30.0</core:Double>
@@ -292,13 +74,13 @@
 
             <StackPanel>
                 <pieChart:RingChartControl Height="220"
-                                        Width="220"
-                                        InnerRadius="{Binding ElementName=slider,
-                                                              Path=Value}"
-                                        Margin="40"
-                                        OutlineThickness="5"
-                                        ToolTipFormattingString="Percentage completed: {0}"
-                                        >
+                                           Width="220"
+                                           InnerRadius="{Binding ElementName=slider,
+                                                                 Path=Value}"
+                                           Margin="40"
+                                           OutlineThickness="5"
+                                           ToolTipFormattingString="Percentage completed: {0}"
+                                           >
                     <pieChart:RingChartControl.ItemsSource>
                         <x:Array Type="{x:Type core:Double}">
                             <core:Double>30.0</core:Double>
@@ -345,15 +127,15 @@
                               />
                 </StackPanel>
                 <pieChart:PieChartControl Grid.Column="1"
-                                       Height="150"
-                                       Width="150"
-                                       ItemsSource="{Binding Slices}"
-                                       Margin="40"
-                                       OutlineThickness="5"
-                                       SliceStyleSelector="{StaticResource FixedColorSelector}"
-                                       SortDescending="{Binding ElementName=sort,
-                                                                Path=IsChecked}"
-                                       >
+                                          Height="150"
+                                          Width="150"
+                                          ItemsSource="{Binding Slices}"
+                                          Margin="40"
+                                          OutlineThickness="5"
+                                          SliceStyleSelector="{StaticResource FixedColorSelector}"
+                                          SortDescending="{Binding ElementName=sort,
+                                                                   Path=IsChecked}"
+                                          >
                     <i:Interaction.Behaviors>
                         <pieChart:DimOtherBehavior />
                     </i:Interaction.Behaviors>
@@ -361,10 +143,10 @@
             </Grid>
 
             <pieChart:PieChartControl Height="150"
-                                   Width="150"
-                                   Margin="40"
-                                   OutlineThickness="5"
-                                   >
+                                      Width="150"
+                                      Margin="40"
+                                      OutlineThickness="5"
+                                      >
                 <pieChart:PieChartControl.ItemsSource>
                     <x:Array Type="{x:Type core:Double}">
                         <core:Double>90.0</core:Double>
@@ -376,21 +158,21 @@
             </pieChart:PieChartControl>
 
             <pieChart:PieChartControl Height="100"
-                                   Width="100"
-                                   Background="White"
-                                   ItemsSource="10,20,30,40,50,60,70,80"
-                                   Margin="40"
-                                   OutlineBrush="Black"
-                                   OutlineThickness="3"
-                                   PieSum="500"
-                                   />
+                                      Width="100"
+                                      Background="White"
+                                      ItemsSource="10,20,30,40,50,60,70,80"
+                                      Margin="40"
+                                      OutlineBrush="Black"
+                                      OutlineThickness="3"
+                                      PieSum="500"
+                                      />
 
             <pieChart:RingChartControl Height="400"
-                                    Width="400"
-                                    InnerRadius="100"
-                                    Margin="40"
-                                    SliceStyleSelector="{StaticResource FixedColorSelector}"
-                                    >
+                                       Width="400"
+                                       InnerRadius="100"
+                                       Margin="40"
+                                       SliceStyleSelector="{StaticResource FixedColorSelector}"
+                                       >
                 <pieChart:RingChartControl.Template>
                     <ControlTemplate TargetType="{x:Type pieChart:RingChartControl}">
                         <Grid>
