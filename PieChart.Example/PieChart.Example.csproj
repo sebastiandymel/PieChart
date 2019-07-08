@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A99C3A12-6E05-4AED-A0C5-8D057F1820A8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>PieChart</RootNamespace>
-    <AssemblyName>PieChart</AssemblyName>
+    <ProjectGuid>{4F267B64-EDAF-4317-BA95-29E45E7D45EE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PieChart.Example</RootNamespace>
+    <AssemblyName>PieChart.Example</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,9 +35,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -54,20 +52,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\CommaSeparatedStringToPieSliceTypeConverter.cs" />
-    <Compile Include="Behaviors\DimOtherBehavior.cs" />
-    <Compile Include="Controls\IPieSlice.cs" />
-    <Compile Include="Controls\PieSlice.cs" />
-    <Compile Include="Converter\PieSlices.cs" />
-    <Compile Include="StyleSelectors\FixedColorStyleSelector.cs" />
-    <Compile Include="StyleSelectors\IndexBasedSliceStyle.cs" />
-    <Compile Include="Behaviors\PathExtensions.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Controls\RingChartControl.cs" />
-    <Compile Include="StyleSelectors\SliceStyleSelector.cs" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\PieChartControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,15 +93,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PieChart\PieChart.csproj">
+      <Project>{a99c3a12-6e05-4aed-a0c5-8d057f1820a8}</Project>
+      <Name>PieChart</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Expression.Blend.Sdk">
       <Version>1.0.2</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

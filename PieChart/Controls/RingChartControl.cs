@@ -10,6 +10,12 @@ namespace PieChart
 {
     public class RingChartControl: PieChartControl
     {
+
+        static RingChartControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RingChartControl), new FrameworkPropertyMetadata(typeof(RingChartControl)));
+        }
+
         #region Handle MOUSE MOVE
         private Dictionary<Path, double> pathToPercentage = new Dictionary<Path, double>();
 

@@ -18,7 +18,12 @@ namespace PieChart
         protected readonly List<PieSliceVal> slices = new List<PieSliceVal>();
         protected Canvas internalCanvas;
         private const string PART_CANVAS = "PART_CANVAS";
-        
+
+        static PieChartControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(PieChartControl), new FrameworkPropertyMetadata(typeof(PieChartControl)));
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
